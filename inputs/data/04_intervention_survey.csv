@@ -1,0 +1,501 @@
+type,Q1,Q2,Q3,Q4,Q5,Q6,Q7
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,No,No,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,No,No,No
+Treated,Quick Service Restaurant,Chain,No,Yes,No,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,No,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,No,No,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,No,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,No,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,Yes,No,No,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,No,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,No,Yes,No
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,No,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,No,No,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,No,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,No,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,No,No,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,No,Yes,No,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,No,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,No,No,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,No,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,No,No,No,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,No,No,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,No,No,No,No,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Chain,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,No,No,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,No,Yes,Yes,Yes,No
+Treated,Quick Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Independent,Yes,No,No,No,Yes
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,Yes,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Independent,No,No,No,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Independent,Yes,Yes,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,No,Yes,No
+Treated,Quick Service Restaurant,Independent,No,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Independent,Yes,No,No,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,No,No,Yes
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Independent,No,No,No,No,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,Yes,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,No,No,Yes
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Independent,No,Yes,No,Yes,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,No,No,No
+Treated,Quick Service Restaurant,Independent,No,No,No,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,Yes,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Independent,No,No,No,Yes,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,No,No,No,Yes,No
+Treated,Quick Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Quick Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Quick Service Restaurant,Independent,Yes,No,No,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,Yes,No,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Full Service Restaurant,Chain,No,Yes,Yes,No,No
+Treated,Full Service Restaurant,Chain,Yes,No,No,No,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Chain,No,No,No,No,No
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,No,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,Yes,Yes,Yes,Yes,No
+Treated,Full Service Restaurant,Chain,Yes,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Full Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,No,No,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,No,No
+Treated,Full Service Restaurant,Chain,Yes,Yes,Yes,No,No
+Treated,Full Service Restaurant,Chain,Yes,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,No,No,Yes,Yes
+Treated,Full Service Restaurant,Chain,Yes,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,Yes,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Chain,No,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Chain,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,No,Yes,No
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,No,Yes,No
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,No,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,Yes,No,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,Yes,No,No,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,No,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,No,No,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,No,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,No,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,No,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,No,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,No,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,No,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,No,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,No,No,No
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,No,No,No
+Treated,Full Service Restaurant,Independent,No,No,No,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,No,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,No,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,No,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,No,No,No
+Treated,Full Service Restaurant,Independent,No,Yes,No,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,No,No,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,No,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,No,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,No,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,Yes,Yes
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Full Service Restaurant,Independent,No,Yes,Yes,Yes,No
+Treated,Full Service Restaurant,Independent,Yes,No,Yes,No,No
+Treated,Drinking Place,Chain,Yes,No,No,No,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Chain,No,Yes,Yes,No,Yes
+Treated,Drinking Place,Chain,Yes,No,No,No,Yes
+Treated,Drinking Place,Chain,Yes,Yes,No,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,No,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,No,Yes,No
+Treated,Drinking Place,Chain,Yes,Yes,No,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,No,Yes,No
+Treated,Drinking Place,Chain,Yes,No,No,No,Yes
+Treated,Drinking Place,Chain,No,No,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,Yes,No,Yes
+Treated,Drinking Place,Chain,No,Yes,No,Yes,No
+Treated,Drinking Place,Chain,Yes,Yes,Yes,No,Yes
+Treated,Drinking Place,Chain,Yes,No,No,No,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,Yes,No
+Treated,Drinking Place,Chain,No,Yes,Yes,No,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Chain,No,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,Yes,No,Yes
+Treated,Drinking Place,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,No,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,Yes,No,Yes
+Treated,Drinking Place,Chain,No,Yes,No,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,Yes,No,Yes
+Treated,Drinking Place,Chain,No,No,Yes,Yes,No
+Treated,Drinking Place,Chain,No,No,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,Yes,No,Yes
+Treated,Drinking Place,Chain,No,No,Yes,No,No
+Treated,Drinking Place,Chain,Yes,No,No,Yes,No
+Treated,Drinking Place,Chain,Yes,Yes,No,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,Yes,No
+Treated,Drinking Place,Chain,Yes,Yes,No,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,No,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,No,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,No,Yes,No
+Treated,Drinking Place,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,No,No,Yes
+Treated,Drinking Place,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,No,Yes
+Treated,Drinking Place,Chain,Yes,No,No,No,Yes
+Treated,Drinking Place,Chain,No,No,Yes,Yes,Yes
+Treated,Drinking Place,Chain,No,No,No,No,Yes
+Treated,Drinking Place,Chain,Yes,No,No,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,No,No,Yes
+Treated,Drinking Place,Chain,Yes,No,Yes,No,Yes
+Treated,Drinking Place,Chain,No,Yes,Yes,No,Yes
+Treated,Drinking Place,Chain,No,Yes,Yes,Yes,No
+Treated,Drinking Place,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Chain,No,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Chain,Yes,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Independent,Yes,No,No,No,Yes
+Treated,Drinking Place,Independent,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Independent,Yes,No,Yes,Yes,No
+Treated,Drinking Place,Independent,Yes,No,No,Yes,No
+Treated,Drinking Place,Independent,Yes,Yes,No,Yes,Yes
+Treated,Drinking Place,Independent,Yes,Yes,Yes,Yes,No
+Treated,Drinking Place,Independent,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Independent,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Independent,No,No,Yes,No,Yes
+Treated,Drinking Place,Independent,No,Yes,Yes,No,Yes
+Treated,Drinking Place,Independent,Yes,No,No,No,Yes
+Treated,Drinking Place,Independent,No,No,No,Yes,Yes
+Treated,Drinking Place,Independent,No,No,No,Yes,Yes
+Treated,Drinking Place,Independent,Yes,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Independent,Yes,No,Yes,No,Yes
+Treated,Drinking Place,Independent,Yes,No,Yes,No,Yes
+Treated,Drinking Place,Independent,Yes,No,Yes,No,Yes
+Treated,Drinking Place,Independent,No,Yes,Yes,Yes,Yes
+Treated,Drinking Place,Independent,Yes,No,No,Yes,Yes
+Treated,Drinking Place,Independent,Yes,No,Yes,Yes,Yes
+Treated,Drinking Place,Independent,No,Yes,No,Yes,No
+Treated,Drinking Place,Independent,Yes,No,Yes,Yes,No
+Treated,Drinking Place,Independent,No,Yes,Yes,No,Yes

@@ -1,0 +1,6 @@
+type,number,region,percentage_total
+total_restaurants,7564,Toronto,1
+coffee_shops,1238,Toronto,0.1636700158646219
+banquet_rooms,201,Toronto,0.026573241671073507
+bars_lounges,250,Toronto,0.03305129561078794
+remainder,5875,Toronto,0.7767054468535166

@@ -1,0 +1,6 @@
+type,number,region,percentage_total
+total_restaurants,2393,Peel,1
+coffee_shops,271,Peel,0.11324697033012955
+banquet_rooms,121,Peel,0.05056414542415378
+bars_lounges,89,Peel,0.037191809444212284
+remainder,1912,Peel,0.7989970748015044
