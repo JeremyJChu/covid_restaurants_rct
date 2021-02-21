@@ -1,0 +1,1046 @@
+---
+title: "Peel Restaurants See Improved Business and Positivity Reopening for Restricted In-Person Dining with Vaccinated Workers, With Quick Service Chain Restaurants Outperforming the Rest - A Stratified Clustered Randomized Trial"
+author: "Jeremy Chu"
+date: "21/02/2021"
+classoption: table
+output: bookdown::pdf_document2
+header-includes: 
+  \usepackage{float}
+  \usepackage{colortbl} 
+  \arrayrulecolor{white}
+abstract: "Our team at Petit Poll Canada was commissioned by the Progressive Conservative Party of Ontario to design an experiment to help them better write policies to alleviate restaurants' burden in navigating COVID-19. With the provision of 5,000 - 10,000 vaccines, we designed and implemented a stratified clustered randomized trial on the region of Peel for the month of April 2021 to examine the effects of allowing qualifying restaurants chosen by lottery to reopen with vaccinated staff under Ontario's orange colour-coded restrictions. Outcomes were measured using surveys targeted at the treatment and control group of restaurants (500 treatment, 1002 control), the sample stratified into representative proportions of Quick Service Restaurant Chain, Quick Service Restaurant Independent, Full Service Restaurant Chain, Full Service Restaurant Independent, Drinking Place Chain, and Drinking Place independent, studying whether the intervention made a difference in restaurants' ability to financially stay afloat during the pandemic, whether reopend restaurants had a more positive month, and whether reopening led to restaurants having higher optimism for the future. Ultimately we found that the intervention had a generally positive effect when compared to the control group, but still fell short in helping restaurants survive COVID-19, opening up room for future trials to further examine the discrepency in experiences between the different types/ownerships of restaurants, and a more detailed investigation towards the impact of government subsidies."
+bibliography: references.bib
+fontsize: 11pt
+mainfont: Calibri
+---
+
+```{r note-document-setup, include=FALSE}
+# Use \usepackage{colortbl} along with \arrayrulecolor{white} to set the default borders for tables in the document to white
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      fig.align = "center",
+                      cache = FALSE) 
+```
+
+```{r library, include=FALSE}
+library(tidyverse)
+library(here)
+library(bookdown)
+library(grid)
+library(gridExtra)
+library(gghighlight)
+library(ggpubr)
+library(kableExtra)
+library(knitr)
+library(magick)
+library(oddsratio)
+```
+
+```{r read-data, include=FALSE}
+peel_restaurants <- read_csv(here("inputs","data","02_peel-restaurants_cleaned.csv"))
+scoping_survey <- read_csv(here("inputs","data","03_scoping_survey.csv"))
+intervention_survey <- read_csv(here("inputs","data","04_intervention_survey.csv"))
+control_survey <- read_csv(here("inputs","data","05_control_survey.csv"))
+toronto_restaurants <- read_csv(here("inputs","data","06_toronto-restaurants_cleaned.csv"))
+hotspots <- read_csv(here("inputs","data","07_hotspots.csv"))
+full_survey <- read_csv(here("inputs","data","08_full-survey_cleaned.csv"))
+full_logit <- read_csv(here("inputs","data","09_full-logit_cleaned.csv"))
+```
+
+```{r colour-setup}
+# This overwrites the default colour for ggplot so I get variants of blues
+viridis_qualitative_pal7 <- c( "#407abf","#4b3dc2", "#8c8a8f", 
+                              "#8FD744FF", "#31688EFF",  "#35B779FF", 
+                              "#21908CFF")
+scale_fill_discrete <- function(...) {
+   scale_fill_manual(..., values = viridis_qualitative_pal7)
+} 
+```
+
+```{r data-manipulation}
+## Peel and Toronto Population Dataset ##
+
+# Combinding Peel and Toronto Restaurants Dataset
+peel_toronto <- rbind(peel_restaurants, toronto_restaurants)
+# Eliminating unwanted rows
+peel_toronto <- peel_toronto[-c(1,6),] 
+
+## Survey Datasets ##
+
+# Merging establishment with ownership columns (Quick Service Restaurant + Chain)
+scoping_survey$category <- paste(scoping_survey$Q3,scoping_survey$Q4)
+intervention_survey$category <- paste(intervention_survey$Q1,intervention_survey$Q2)
+control_survey$category <- paste(control_survey$Q1,control_survey$Q2)
+
+# Factoring the new category column so the graphs show up with QSR first
+intervention_survey$category <- factor(intervention_survey$category, levels =
+                                         c("Quick Service Restaurant Chain",
+                                           "Quick Service Restaurant Independent",
+                                           "Full Service Restaurant Chain",
+                                           "Full Service Restaurant Independent",
+                                           "Drinking Place Chain",
+                                           "Drinking Place Independent"))
+
+control_survey$category <- factor(control_survey$category, levels =
+                                         c("Quick Service Restaurant Chain",
+                                           "Quick Service Restaurant Independent",
+                                           "Full Service Restaurant Chain",
+                                           "Full Service Restaurant Independent",
+                                           "Drinking Place Chain",
+                                           "Drinking Place Independent"))
+
+## Logistic Regression Dataset ##
+
+# Factoring all columns for the logistic regression dataset
+full_logit$type <- factor(full_logit$type)
+full_logit$Q1 <- factor(full_logit$Q1)
+full_logit$Q2 <- factor(full_logit$Q2)
+full_logit$Q3 <- factor(full_logit$Q3)
+full_logit$Q4 <- factor(full_logit$Q4)
+full_logit$Q5 <- factor(full_logit$Q5)
+full_logit$Q6 <- factor(full_logit$Q6)
+full_logit$Q7 <- factor(full_logit$Q7)
+```
+
+# Introduction
+
+Our team at Petit Poll Canada has been hired by the Progressive Conservative Party of Ontario to investigate possible interventions to help restaurants in Ontario stay afloat during lockdown periods. Premier Doug Ford has promised an allocation of 5,000 to 10,000 vaccines for our team to design an experiment to aid policy development. Based on Ontario's past COVID-19 trends, and the limited availability of vaccines, our team has opted to run a stratified clustered randomized trial on geographical areas falling under the Ontario Peel Public Health Unit. As lower risk COVID-19 areas move in and out of Ontario's colour-coded framework, we have opted to design our experiment focusing on Ontario's 4 major COVID-19 hotspots: Peel, Toronto, York, Ottawa. Paying heed to previous organizations' research on the distribution of restaurant categories [@citeFoodServiceFacts], and referring to data we collected from an initial scoping survey, we stratified our restaurant clusters into groups made up of: Quick Service Restaurants, Full Service Restaurants, and Drinking Places, each further split between Chain and Independent type stores. 500 qualifying restaurants were randomly allocated to the treatment group, and 1002 into the control group. The treatment restaurants had their staff vaccinated and subsequently reopened for in-person dining, under specific restrictions, for the duration of April 2021. The control restaurants were those who wanted to reopen but was not chosen by our lottery system. In total, with an average of 7 workers per restaurant, and 2 doses per worker, we used up a total of 7,000 vaccines. 
+
+To measure the effects of the intervention, we distributed near identical surveys to the intervention and control group. The results were telling yet left more to be desired. We surveyed whether restaurants thought the intervention led to a positive effect, compared the intervention and control groups on whether restaurants were able to stay afloat with/without government subsidies, and if there were differences in the groups' optimism going forward. Our study indicates that any comparison, no matter if it was within the intervention group or between intervention and control groups required respecting the discrepancy between the experiences of QSR, FSR and Drinking Places, and also the different business models chain and independent restaurants have. As a result, while we found that our intervention had a slight positive effect on restaurants' ability to stay afloat, we also noticed that within the intervention group, chain restaurants had a vastly higher odds in staying afloat than independent restaurants.
+
+Overall, while our trial delivered promising results, a lot more gaps need to be filled. We were unable to determine the strength of the intervention's positive effect. Further research must be done to target the differences between restaurant establishments and ownership. Moving on, the Ford government has promised an additional 5,000 - 10,000 vaccines for us to continue the trial with another 500 restaurants in Peel to participate in the intervention. After another month of the trial, we hope to scale up the experiment to the other 3 hotspots. As we look towards a possible third lockdown, we hope to be able to find a concrete policy solution during the Summer months when cases are lower. 
+
+# Methodology
+
+All of the analysis was done using R [@citeR]. Online surveys were created using Typeform [@citeTypeForm] and posted on the region of Peel's website [@citePeel]. All graphs were plot and arranged using a combination of ggplot2, gridExtra, and gghighlight [@citeGgplot2; @citeGridExtra; @citeGghighlight]. Tables were created using knitr::kable [@citeKnitr] and kableExtra [@citeKableExtra]. The odd log ratio of our logistic regression results was calculated using oddsratio [@citeOddsratio]. The creation of the final product was aided with ggpubr, knitr, bookdown and magick [@citeGgpubr; @citeKnitr; @citeBookdown; @citeMagick].
+
+# Context
+
+Restaurant closures are typically implemented as part of the final lockdown measures during declaration of emergencies to combat COVID-19 community spread. Prior to that restaurants operate under various levels of restrictions depending on COVID-19 case numbers of the regions they are located in [@citeCovidColour]. For the majority of Ontario, regions move in and out of the first 3 colour zones: green, yellow and orange. However, for Peel, Toronto, York and occasionally Ottawa, the four identified COVD-19 hotspots, the regions often find themselves under more stringent measures [@citePeelRed]. In a survey conducted by Restaurants Canada during the first reopening in June 2020, they reported that restaurants were not only operating at a loss during periods where in-person dining was closed, but some still maintained a deficit under new in-person dining restrictions. Their survey, unfortunately, combined restaurants operating only under takeout/delivery with those that have also reopened for in-person dining, making it impossible to determine the benefits, or even harm, of reopening under restrictions. With an increase in vaccine supply but a looming third wave of the pandemic, the Progressive Conservative Party of Ontario led by Premier Doug Ford has been looking into solutions in keeping the restaurant industry afloat. With a leeway of 5,000 - 10,000 vaccines available to be allocated to Peel restaurant workers during March 2021, the government is looking for a solution. The most pressing question as Ontario looks towards a second reopening, and potentially a third lockdown is: “Can restaurants survive operating under in-person dining restrictions?” To answer that question, we at Petit Poll Canada have been tasked by the Ontario government with designing randomized controlled trials (RCTs) to find out. 
+
+# Developing the Research Question
+
+## Guidelines Behind Our Formulation
+
+Under the stringent guidelines from experts in RCT design, we have converted the question asked above (Can restaurants survive operating under in-person dining restrictions?) into a proper, answerable research question following the “PICOT” format: “P (population of interest), I (intervention to be studied), C (comparator intervention), O (outcomes to be evaluated), and T (is there a time duration for intervention/outcome ascertainment time)” [@citeGuideRCT]. 
+
+In terms of population, when looking at regions in Ontario, we first decided against performing a large-scale cluster randomized trial in which we randomly chose entire public health units to reopen. Not only would the surveying costs would be prohibitive, and take up more vaccinations than Ontario can currently afford, but we also could not justify keeping restaurants in low COVID-19 transmission regions closed longer than they normally would be as Ontario starts to emerge from its second lockdown. And even if that was not the case, manipulating restaurant opening across the entirety of Ontario has a high likelihood into feeding the public's inclination to flock to open areas for social contact. Holding such an experiment would increase risk of COVID-19 transmission and run contrary to the "Ottawa Statement for the Ethical Design and Conduct of CRTs" recommendation of minimal risk [@citeOttawa]. Our team has had to go to great lengths to design our experiment to not only be scientifically and statistically sound, but also ethically justifiable in a global pandemic. 
+
+Not performing a CRT in the entirety of Ontario is in fact beneficial to our study. While we would like to report to the government as to whether restaurants can ultimately survive under restrictions, the reality is that for most of Ontario, restaurants have typically operated under moderate to light restrictions. It is the COVID-19 hotspots of Peel, York, Toronto, and Ottawa that see restaurants under the most stringent restrictions. With a combined population of roughly 6.4 million, which is around 44% of Ontario (See Figure \@ref(fig:show-figure-1-hotspots)), we have decided to turn our eyes towards answering the question for these 4 hotspots instead. As we are left with only 4 regions, clustering based on geographical area is unfeasible, and instead the region of Peel has been chosen as our intervention region.
+
+```{r prep-figure-1-hotspots, echo=FALSE}
+# Factoring location for specific display order
+hotspots$location <- factor(hotspots$location, levels = c("peel","toronto","york","ottawa","all_hotspots","rest_of_ontario"))
+
+hotspot_bar <-
+  hotspots %>%
+  ggplot(mapping = aes(x = location, y = population)) +
+  geom_bar(stat='identity',fill = "steelblue") +
+  geom_text(aes(label=population), position=position_dodge(width=0.9),vjust=-0.5) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6)) + #Caption size adjustment 
+  scale_x_discrete(labels = c("Peel", "Toronto", "York", "Ottawa", "All Hotspots","Rest of Ontario")) +
+  labs(x = "Region", #Adding labels and misc text
+       y = "Population",
+       title = "Population of the 4 Ontario COVID-19 Hotspots (in Millions)",
+       caption ="Source: Google")
+```
+
+```{r show-figure-1-hotspots, fig.cap = "Ontario's 4 hotspots make up almost half of Ontario's entire population", fig.pos = "H", out.width = '70%'}
+show(hotspot_bar)
+```
+
+## Why Peel? 
+
+Why Peel? According to past trends, out of the four hotspots, Peel's situation is not optimistic [@citePeelColour]. It makes sense on a policy standpoint to first allocate some vaccinations to restaurant workers in the area. Peel also has a notorious car culture where residents would rather drive than walk [@citePeelDrive], which in this case works to our advantage. Running the experiment in Toronto, where “42.5% of the working population uses sustainable transportation” [@citeTorontoCommute], is a recipe for increased COVID-19 transmission, whereas we anticipate patrons in Peel driving to restaurants and thus minimizing risk. As to why not York, while there is sound evidence to vaccinate York workers first with its low-income problem [@citeYorkNeighbourhood], there is a higher chance of incurring unexpected risks towards vulnerable participants. When choosing between Peel and Ottawa, we opted for Peel simply because of its larger population size. 
+
+Is Peel representative? Despite the differences between regions, for the purpose of evaluating the outcome of the intervention, Peel serves our purpose. While income disparity is an unfortunate reality in all regions, it is undoubtedly the case that patrons who would visit a restaurant during these times are those who can afford to do so. According to a survey conducted by Angus Reid around the summer of 2020, the majority of Canadians want to dine-out, and even those hesitant to are willing to support their local restaurants [@citeCanadianReturn]. A comparison of the distribution of restaurants between Peel and Toronto, despite the overwhelming difference in businesses, show a similar percentage spread of restaurants to coffee houses to other types of establishments (See Figure \@ref(fig:show-figure-2-peelvtoronto)). It is thus likely that other regions also show a similar distribution of establishments despite population differences. Our population of interest is therefore set to Peel, under the assumption that restaurant performance in Peel is representative of other regions that have to be under more stringent COVID-19 dining measures. 
+
+```{r prep-figure-2-proppeeltor, echo=FALSE}
+proppeeltor <- 
+  ggplot(peel_toronto, mapping = aes(x = type, y = percentage_total, fill = region)) +
+  geom_bar(stat='identity',position=position_dodge()) + 
+  geom_text(aes(label=round(percentage_total, digits = 2)), position=position_dodge(width=0.9),vjust=-0.5) +
+  scale_x_discrete(labels = c("Banquet Rooms", "Bar Lounges", "Coffee Shops", "Remainder")) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6)) + #Caption size adjustment 
+  labs(x = "Category", #Adding labels and misc text
+       y = "Percentage",
+       title = "Proportion of Different Food Services to Total Restaurants",
+       caption ="Source: Missisauga and Toronto Directory")
+```
+
+```{r show-figure-2-peelvtoronto, fig.cap = "In both Peel and Toronto, restaurants make up the vast majority", fig.pos = "H", out.width = '70%'}
+show(proppeeltor)
+```
+
+## The Remaining ICOT
+
+The intervention is reopening restaurants under orange level restrictions with staff vaccinated, and our hypothesis is that this would be enough for restaurants to stay afloat (with profits being a benefit) when compared to other restaurants only operating takeout/delivery or remaining temporarily closed to minimize costs. The flipside will be our null hypothesis in which the intervention does not help restaurant survivability. Due to the urgent nature of restaurant survivability, the time period for the intervention only ran for 1 month (April 2021), with the previous month (March 2021) dedicated to rolling out vaccines. 
+
+The restrictions listed in Ontario’s Color Coded Framework for Orange regions [@citeCovidColour], which include but is not limited to: 
+
+-	Indoor capacity limit of 50 when maintaining social distancing measures
+-	Outdoor dining permitted
+-	No-buffet style service
+-	Line-ups managed by venue, patrons required face-masks and 2 metre distancing
+-	Limit of 4 people seated together
+
+The results of the intervention will be compared with restaurants who were not selected to participate in the intervention, but expressed a desire to do so. A detailed rundown on inclusion and exclusion criteria will be described in [Defining Inclusion and Exclusion Criteria within Peel Restaurants]. The outcome to be measured will be based on 2 simple questions of “Did you stay afloat with and without government subsidies.” (See [Intervention and Control Survey] for a more detailed explanation of the process). We believe restaurant revenue is not a good measure during the pandemic due to constantly changing costs and malleable situations. Our decision to base success on staying afloat is predicated on the idea that restaurants by large have been operating at a loss. The goal is not to drive restaurant profits, but have restaurants survive long enough for wide spread vaccination rollouts. 
+
+# Defining Inclusion and Exclusion Criteria within Peel Restaurants
+
+To ensure fairness, we have chosen participants based on random allocation. Following Gertler et al.’s guidelines for random allocation [@citeImpactEval], our process addresses the four concerns of:
+
+-	Are the baseline characteristics balanced?
+-	Will the treatment and comparison groups react the same way? (Non-compliance)
+-	Are the numbers sufficiently large?
+-	Could there be an impact of the treatment on units in the comparison group?
+
+## Balancing Baseline Characteristics
+
+To ensure that the treatment is the only factor in affecting restaurant performance we needed to standardize all other factors. Due to the relatively contained geographic region of our trial, sending out a wave of surveys to consolidate our scope was well within our budget. The scoping survey is short, with 8 questions, with the majority simple questions on background information gathering. The goal was two-fold. We first gathered information on the specifics of the restaurant like whether they are an independent or chain, and what type of food establishment did they identify as to formulate our stratification criteria. We then ask "given a vaccine, would they reopen under restrictions" since it is not guaranteed that all restaurants would like to reopen. In this manner we would be able to isolate only the restaurants that would like to reopen, or to be precise those that believe reopening would benefit their business. For restaurants that have shut down, or believe that their current state of affairs is the best method to tide over the pandemic, this survey would exclude them from participation. 
+
+Secondly, with the information gathered from this survey, we would be able to conduct a stratified clustered randomized trial. Clustered in the sense that we are selecting entire restaurant units, but we are also stratifying the sample so it accurately represents the restaurant breakdown of the population. With a 45:55 breakdown of chain vs independent food establishments (See Table \@ref(tab:show-table-1-IvC)), and restaurants being split into quick service restaurants, full service restaurants, drinking places, and caterers, proper evaluation of the treatment outcomes necessitates that our sample is representative of these proportions (See Table \@ref(tab:show-table-2-scope-rest-breakdown)). The gap between chain and independent restaurants is widening, and it is increasingly obvious that the pandemic favours chains. McDonald’s for instance, has reported the best month in a decade [@citeMcDs]. Stratification of our sample into chain and independent stores, along with restaurant types will highlight their differences and allow for a much clearer picture.
+
+```{r prep-table-1}
+# Filtering out relevant columns
+scope_IC_count <- scoping_survey %>% group_by(Q4) %>% count()
+```
+
+```{r show-table-1-IvC}
+knitr::kable(scope_IC_count, escape = F,
+      col.names = c("Category","Number"),
+      align = "ll",
+      caption = "Scoping Survey: Ratio of Chain vs Independent") %>%
+  row_spec(0,bold=TRUE) %>% # Bold Column names, Row 0 = first row
+  kable_styling(full_width = F, latex_options = "hold_position") %>%
+  add_footnote("First glance at the scoping survey shows a 45:55 ration of Chain vs Independent")
+```
+
+```{r prep-table-2}
+# Filtering columns, factoring for better display order, then sorting
+scope_rest_breakdown <- scoping_survey %>% group_by(Q3) %>% count()
+scope_rest_breakdown$Q3 <- factor(scope_rest_breakdown$Q3, levels = c("Quick Service Restaurant","Full Service Restaurant","Drinking Place","Caterer"))
+scope_rest_breakdown <- scope_rest_breakdown %>% arrange(Q3)
+```
+
+```{r show-table-2-scope-rest-breakdown}
+knitr::kable(scope_rest_breakdown, escape = F,
+      col.names = c("Restaurant Types","Number"),
+      align = "ll",
+      caption = "Scoping Survey: Restaurant Types Breakdown") %>%
+  row_spec(0,bold=TRUE) %>% # Bold Column names, Row 0 = first row
+  kable_styling(full_width = F, latex_options = "hold_position") %>%
+  add_footnote("First glance at the scoping survey shows a dominance of FSR and then QSR restaurants")
+```
+
+Simply put, restaurants will be surveyed as to whether they want to reopen or not, and those that do will be asked to sign up for a lottery to be randomly allocated vaccines and permission to reopen. After a month, provided that vaccine supply is on track and COVID-19 cases continue to be under control, another batch of restaurants will be allowed to reopen. 
+
+## Explanation of QSR, FSR, Drinking Places
+
+Restaurant terminology is constantly updating and can often be confusing. We have taken the liberty to go for the broadest generalizations possible, differentiating restaurants between Quick Service Restaurants (QSR) - Anything that usually offers a drive-thru or a counter in which customers can order and pick up their food; Full Service Restaurants (FSR) - The traditional dining experience in which customers sit and order, also encompassing the fast casual definition despite it now emerging as its own category because its slower service implies a longer time customers would be inside as compared to QSRs; and Drinking Places - Ranging from coffee houses to bubble tea dessert cafes to bars, covering any establishment where their primary revenue is selling beverages. These definitions are broad and we allow for the respondents to categorize themselves into the category they feel best represents them. Our baseline is referenced from Franchise Direct [@citeFranchiseDirect].
+
+## Handling Non-Compliance
+
+Under these stipulations where restaurants sign up for the opportunity to improve their business, we were able to eliminate noncompliance. To further guarantee compliance, we also partnered with the Ontario government to conduct health inspections across all reopening Peel restaurants. This serves a double purpose, in which not only can we ensure restaurants’ compliance of reopening procedures, but we will be able to catch any restaurants that took the vaccines but never reopened. 
+
+## Sample Size
+
+Unfortunately, the number of restaurants we can allow to reopen is contingent on the amount of vaccines available, which makes this trial unique. According to a study conducted on evaluating the sample size requirements of RCTs, for a primary binary outcome, the authors recommended a sample of at least 120 subjects, 60 in each intervention and control groups [@citeSampleSizeReq]. With between 5,000 – 10,000 vaccines allocated by the Ford government, we ensured that our sample size calculations left us with vaccines to spare. Based on the average of 7 employees per restaurant (See Figure \@ref(fig:show-figure-5-scoping-bar-staff)), we decided to allocate a third of our respondents into our treatment group. That comes down to 500 restaurants, around 3500 workers, and 7000 vaccines. Caterers were excluded from the study because they are unable to reopen for in-person dining. 7000, rather than 3500 vaccines were allocated due to the requirements of a second vaccination dose at the end of 28 days. Uncertain information on whether the second dosage can be delayed or not has led us to adapt a better safe than sorry approach, and we are disinclined to risk our intervention group with partial immunization for a larger sample size [@citeSafeDelay]. Our split of 500 to 1002 for the treatment-control group (See Table \@ref(tab:show-table-3-scoping)) thus falls into the proper sample size requirements for a binary outcome of “Does reopening with orange coded restrictions keep restaurants afloat?” 
+
+```{r prep-figure-5, warning=FALSE}
+scoping_survey_open <- scoping_survey %>% filter(Q5 != 'Permanently Closed') # Filtering out non-respondents
+scoping_bar_staff <-
+  scoping_survey_open %>%
+  ggplot(aes(Q7)) +
+  geom_histogram(breaks=seq(1,20, by=1),
+                 col = "black",
+                 fill = "steelblue",
+                 alpha = .5) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment
+        plot.margin = margin(10, 10, 10, 100)) +  #Gives more margin space
+  labs(title = "How much staff would you be employing for April 2021 if you were allowed to reopen?",
+       caption ="Source: Scoping Survey")  
+```
+
+```{r show-figure-5-scoping-bar-staff, fig.cap = "On average restaurants will be hiring 7 employees", fig.pos = "H", out.width = '70%', warning=FALSE}
+show(scoping_bar_staff)
+```
+
+```{r prep-table-3}
+scoping_results <- # Filtering relevant columns
+  scoping_survey %>% 
+  filter(Q5 != 'Permanently Closed') %>%
+  filter(Q6 == 'Yes') %>%
+  group_by(category) %>%
+  count()
+
+# Factoring for order
+scoping_results$category <- factor(scoping_results$category, levels = c("Quick Service Restaurant Chain",
+                                           "Quick Service Restaurant Independent",
+                                           "Full Service Restaurant Chain",
+                                           "Full Service Restaurant Independent",
+                                           "Drinking Place Chain",
+                                           "Drinking Place Independent"))
+
+# Renaming for clarity
+scoping_results <- scoping_results %>%
+  rename(total_respondents = n) 
+
+# Forcing in simulation numbers from the survey scripts
+scoping_results$treatment_group <- c(round(169/3),round(69/3),round(127/3),round(549/3),round(378/3),round(210/3))
+scoping_results$control_group <- c(169 - round(169/3),69 - round(69/3),127 - round(127/3),549 - round(549/3),378 - round(378/3),210 - round(210/3))
+
+# Sorting by factored category
+scoping_results <- scoping_results %>% arrange(category)
+
+# Force creating another dataset for total simulation numbers
+total_scope <- data.frame("Total",1502,500,1002)
+names(total_scope) <- c("category","total_respondents","treatment_group", "control_group")
+
+# Merging datasets and then reordering
+scoping_results <- rbind(scoping_results,total_scope)
+scoping_results <- scoping_results[,c(1,3,4,2)]
+```
+
+```{r show-table-3-scoping}
+knitr::kable(scoping_results, escape = F,
+      col.names = c("Category","Treatment Group","Control Group","Total Respondents"),
+      align = "lccc",
+      caption = "Results of the Scoping Survey") %>%
+  row_spec(0,bold=TRUE) %>% # Bold Column names, Row 0 = first row
+  kable_styling(full_width = F, latex_options = "hold_position") %>%
+  add_footnote("Caterers are removed because they do not fit experiment criteria")
+```
+
+## Could There be an Impact of the Treatment on Units in the Comparison Group?
+
+While designing the experiment, we were mainly concerned with 2 possibilities of indirect impacts on the treatment:
+
+-	Would the fact that some restaurants are open while others remained closed take further sales away from the control group and lead to an inaccurate representation of the effects of the intervention? 
+-	Would the other 3 hotspots remaining closed funnel new customers to Peel and inaccurately skew the effectiveness of the treatment? 
+
+After rigorous research, we have arrived at the conclusion that no, these situations are unlikely to occur. For the first possibility, the nature of business means that restaurants are constantly cannibalizing each others' customers. Fortunately, fear of the pandemic works in our favour. Referring back to Angus Reid’s survey, for Canadians that are still hesitant to dine out, they are still inclined to go support their favourite local restaurants, which means it is highly likely that the cashflow would only be from loyal customers and not Canadians sick of quarantine going to whatever restaurants they can find [@citeCanadianReturn]. 
+
+This leads us to reject the second possibility. As mentioned, restaurants across Ontario are reopening and it is only the 4 hotspots that are under more stringent restrictions. Therefore it is unlikely for an sudden increase in patrons for Peel restaurants. We do not anticipate customers from Toronto, York, and Ottawa to commute long distances to dine in Peel restaurants, nor do we expect an influx of patrons to hotspots once we scale up the trial. 
+
+# Logistics
+## Distributing the Scoping Survey
+
+We ensured that the survey can be accessed in 2 ways. We worked with the region of Peel to first made a public announcement regarding the possession of up to 10,000 vaccines allocated for front-line restaurant workers, and asked those interested in reopening to sign up via our survey linked in the announcement. We also made clear that after April 2021, if vaccine supplies were on schedule, the trial would continue with a new batch of restaurants. We also included a hotline on the Region of Peel's website, and subsequently passed onto media outlets where restaurants can call in and answer the survey with our agents. This ensured that those who responded were restaurants that wanted to reopen, and believed reopening would be for the best, mitigating resentment and feelings of unfairness from those not chosen. Out of 2393 restaurants in Peel, we received responses from 1502 viable for participation. Petit Poll will absorb the cost of designing and analyzing the survey. The region of Peel and the Progressive Conservative Party will be in charge of the costs of distributing the vaccines. At the end of the survey we asked restaurants their preference to be contacted for the evaluation survey, providing the options of online, phone, and mail.^[Scoping survey can be found:  https://c1m2jwzr5dk.typeform.com/to/GomHmnnL]
+
+## Distributing the Intervention Evaluation Survey
+
+The evaluation survey was distributed to both the control^[Survey sent to control groups can be found: https://c1m2jwzr5dk.typeform.com/to/YMR7bXHD] and treatment groups^[Survey sent to treatment groups can be found: https://c1m2jwzr5dk.typeform.com/to/r98QZqE6], based on their contact preferences filled out from the scoping survey. 1071 responded online and 429 by phone. While there were some non-respondents by the deadline of May 2nd, 2021, subsequent follow-up phone calls to their businesses filled in the gaps. 
+
+## Survey Privacy
+
+To protect respondent privacy, the surveys do not collect non-publicly available information. The only personal information businesses have to fill in are business names, phone numbers, and addresses, all easily searchable. We also ensured that our questions were suitably vague, consisting largely of questions that either asked for Yes/No responses. All survey data is stored internally at Petit Poll Canada. 
+
+## Lottery Process
+
+Restaurants fitting participation criteria were first stratified based on their self-identified service style (Quick Service Restaurant, Full Service Restaurant, Drinking Place) and ownership (Chain, Independent), and compiled into respective lists. Restaurants were then chosen through random assignment of numbers. Our stratification ultimately ended up with QSR Chain, QSR Independent, FSR Chain, FSR Independent, Drinking Place Chain, and Drinking Place Independent groups. The highest numbered restaurants were selected until the participants filled the stratification quota of each section.
+
+## Facilitating the Vaccination Process
+
+Chosen restaurants were then contacted by phone over a secure hotline to provide a list of employees and their phone numbers for vaccination. The number of employees were cross-referenced with the survey results to ensure that restaurants are not taking more vaccinations than they need. A copy of the information was then forwarded to Trillium Health Partners, with guarantees of patient privacy, while our own data is managed under the jurisdiction of our data stewards and will be deleted once the trials end.   Restaurants were then asked to inform their employees to head to Trillium Health Partners for their vaccination anytime from the end of February 2021 to mid-March. If chosen restaurants were unable to be reached, they were given 24 hours to call back to our Petit Poll hotline. If still they were still nonresponsive, the next restaurant with the highest randomly generated number would be chosen. Luckily, all of our chosen 500 participants responded and all employees were vaccinated by the end of March. 
+
+# Discussion and Results
+
+## Scoping Survey
+
+The scoping survey consists of 8 questions that focus on understanding the classification and circumstances of surveyed restaurants, and also doubles as a declaration of consent in participating in the trial. As the results of the scoping survey becomes the data that informs the intervention and control survey design, the scoping survey itself must be designed in a way that allows for a sufficient amount of flexibility in setting the parameters for our treatment group. By first starting with inquiring about business name and addresses, we ensure that survey respondents are located within our treatment area. We then ask respondents to self-categorize into either chain or independent, and also whether they would consider their restaurant quick service, full service, a drinking place, or a catering establishment. While we anticipated removing catering establishments from our trial, we left the option in the survey for fairness and also opening up the possibility to be surprised by the results. Once we got the basic information of the restaurants out of the way, we asked how the restaurants were currently operating simply to take into account whether we needed to further stratify our population into restaurants that had temporarily closed versus those that were offering some sort of takeout/delivery option. Lastly, we asked whether restaurants would like to reopen under these circumstances, removing units that either were already doing well with takeout/delivery or that simply did not want to reopen. To determine the size of the treatment group, we also gathered information on the number of staff each restaurant would need to employ for the trial month. This was necessary as vaccine supply for our trial is limited. The survey can be completed within 5 minutes and is relatively straightforward. 
+
+### Results
+
+All tables were created using Kable [@citeKableExtra], and figures were generated using [@citeGgplot2].
+
+While we had 2386 respondents to our scoping survey (See Table \@ref(tab:show-table-1-IvC)), broken down by establishments (See Table \@ref(tab:show-table-2-scope-rest-breakdown)), the qualifying restaurants was much less. As caterers do not provide in-door dining services, we have excluded the 203 caterers from our list of qualifying participants. We then removed 225 permanently closed restaurants from the list. Figure \@ref(fig:show-figure-3-scoping-bar-proportion) shows the breakdown of the current state of operations of different restaurant categories sans caterers in Peel. 
+
+```{r prep-figure-3}
+scoping_bar_proportion <- 
+  scoping_survey %>% 
+#  filter(Q5 != 'Permanently Closed') %>%
+  group_by(category) %>%
+  count(Q5) %>%
+  ggplot(mapping = aes(x = category, y = n, fill = Q5)) + 
+  geom_bar(stat='identity',position=position_dodge()) +
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.5) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  scale_x_discrete(labels = c("Caterer Chain", "Caterer Indie", "Drink Chain", "Drink Indie","FSR Chain","FSR Indie","QSR Chain","QSR Indie")) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment
+        plot.margin = margin(10, 10, 10, 100)) +  #Margin adjustment so x-axis labels don't get cut off
+  labs(x = "Category", #Adding labels and misc text
+       y = "Percentage",
+       title = "What are your current state of operations?",
+       caption ="Source: Scoping Survey")  
+```
+
+```{r show-figure-3-scoping-bar-proportion, fig.cap = "Majority of restaurants open for takeout/delivery, small percentage temporarily/permanently closed", fig.pos = "H", out.width = '70%'}
+show(scoping_bar_proportion)
+```
+A large majority of all establishments have opted to offer takeout/delivery, while roughly 10% has closed permanently, and another 10% closed temporarily. Out of all food establishments that are offering takeout/delivery or are temporarily closed, only 1502 out of 1996 expressed a desire to reopen (Figure \@ref(fig:show-figure-4-scoping-bar-vaccine)). These 1502 restaurants therefore formed our pool of qualified participants and we split the treatment/control group from there. 
+
+```{r prep-figure-4}
+scoping_survey$Q6 <- factor(scoping_survey$Q6, levels = c("Yes","No"))
+scoping_bar_vaccine <-
+  scoping_survey %>% 
+  filter(Q5 != 'Permanently Closed') %>%
+  filter(!category %in% c('Caterer Chain', 'Caterer Independent')) %>%
+  group_by(category) %>%
+  count(Q6) %>%
+  ggplot(mapping = aes(x = category, y = n, fill = Q6)) + 
+  geom_bar(stat='identity',position=position_dodge()) +
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.5) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  scale_x_discrete(labels = c("Drink Chain", "Drink Indie","FSR Chain","FSR Indie","QSR Chain","QSR Indie")) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment
+        plot.margin = margin(10, 10, 10, 100)) +  #Margin adjustment so x-axis labels don't get cut off
+  labs(x = "Category", #Adding labels and misc text
+       y = "Percentage",
+       title = "If given vaccines for your staff, do you consent to reopen under restrictions?",
+       caption ="Source: Scoping Survey")  
+```
+
+```{r show-figure-4-scoping-bar-vaccine, fig.cap = "Majority of restaurants would reopen with restrictions if given vaccines", fig.pos = "H", out.width = '70%'}
+show(scoping_bar_vaccine)
+```
+
+## Intervention and Control Survey
+
+With 5,000 - 10,000 vaccines, we needed to keep our treatment group within these constraints. Taking into account double vaccination dosages, our option was to either split our participants in half, or allocate a third to the treatment. Referring back to respondents' answers to staff numbers (See Figure \@ref(fig:show-figure-5-scoping-bar-staff)), if we chose to split in half, 751 * 7 * 2 would result in 10,514 vaccinations required. Hence we decided to take a clean 500 participants, a third of the total participant pool (Table \@ref(tab:show-table-3-scoping) shows the full breakdown of treatment-control groups). 
+
+We also decided to stratify based on a combination of restaurant type and whether the establishment was a chain or independently owned. The process was simple, by grouping all responses by a type and chain/independent, as shown in Table \@ref(tab:show-table-3-scoping), we divided each group by 3 to get our maximum quota for each group. We then followed our lottery procedures outlined earlier and split our groups into 500 treatment restaurants and 1002 control restaurants.
+
+There are 5 core questions in the intervention survey, and 4 in the control survey. The questions were identical apart from "Intervention Q3: Did reopening have a positive effect on your business?" being omitted in the control survey. The main goal is to determine whether reopening under restrictions could allow restaurants to stay afloat, with public knowledge that those restaurant workers had already been vaccinated as well. The intervention survey therefore started with asking whether the reopening had a positive effect for the respondent during month of the trial period. Revenue was not asked because of the different costs in upkeep for each restaurant, making it difficult to come to a sound judgment based on revenue alone. Likewise the survey also did not inquire about restaurant earnings, as the term implies profit. What we wanted to know was if the restaurants could survive COVID-19. Hence we opted fo a simple yes/no answer to the potential positive effects of the intervention. To supplement this data, we then asked 3 relevant questions surrounding subsidies. As wage and rent subsidies are given on a month by month basis, it was near impossible to stratify the treatment and control groups based on the types of subsidies restaurants were taking. It is possible however, post treatment, to have restaurants chime in on whether they think they would have been able to stay afloat with and without government subsidies. The aim of these series of questions is to identify which restaurants were receiving subsidies, and whether restaurants believed they could survive opening restrictions during a pandemic without subsidies. Answers to these questions were significant for policy in determining how long subsidies should continue, and when restaurants could stand on their own again. With each restaurant having its own financial planning to tide through COVID-19, we thus decided against using the term "break even" in this particular question and opted for "stay afloat". Lastly, we asked how optimistic restaurants were if they were to operate under the same conditions for another month. Comparing the results between intervention and control survey would show general optimism/pessimism levels between restaurants that reopened, and those that were forced to remain closed to in-person dining. 
+
+## Our Intervention During COVID
+Ontario as a region is not impacted by COVID-19 equally. Transmission rates in the Leeds, Grenville and Lanark District Health Unit is vastly lower than Peel [@citeCovidGreen]. There is a sense of urgency in addressing the declining restaurant industry in the 4 hotspots of Peel, York, Toronto, and Ottawa that are not found in other regions. While Restaurants Canada has devoted significant portions of their efforts into bringing to light the realities restaurants across Canada are currently facing [@citeRestaurantsCanada], Premier Doug Ford has historically justifiable prioritized the safety of Ontarians above the restaurant industry [@citeDougRestaurants]. Now that vaccinations are rolling and lockdowns are lifting, we are finally seeing the opportunity to experiment safely with keeping restaurants open without jeopardizing public health. 
+
+However, our results indicate that a carpet intervention will not cut it. If the Ford government wants to "save" the restaurant industry, it needs to both look at the restaurant industry as a whole and also keep in mind the different expediencies among quick and fast service restaurants, along with the different operating costs behind chain and independent establishments. Restaurants Canada has been pushing for support for independent restaurants, and we hope that our intervention serves as the bridge between experts in the restaurant industry with policy makers. The restaurant industry needs support, some moreso than others, and our surveys will tell you where. 
+
+## Positivity of Reopening - There is a Gap Between Chains and Independents
+
+In responses to Q3 of the intervention survey "Did reopening have a positive effect on your business?" (Figure \@ref(fig:show-figure-6b-intervention-bar-positive-category)), discrepancies between restaurant types are made apparent. Quick Service Restaurants report a 50/50 split between the positive effects of reopening, Full Service Restaurants report 55% positivity rate, while Drinking Places sits at 73% positivity. Further breaking down the categories into chain and independent restaurants tell a different story (Figure \@ref(fig:show-figure-6-intervention-bar-positive)). The 50/50 split of QSRs transforms into a 60% positivity for QSR chains and an abysmal 31% positivity for QSR independents. FSRs and Drinking Places meanwhile remain at similar pre-split levels. 
+
+### QSR
+While the discrepancy between QSR chains and independents are eyeopening, they are by no means surprising. QSR chains cover franchises like McDonald's and Dominoes Pizza, both of which are reporting exceedingly high sales during COVID-19 [@citeMcDs]. We believe that the positivity reported from QSR chains has less to do with the reopening effect, and more to do with a general uptick in sales anyway. QSR independents tell a different story. With low positivity levels, it appears that independent QSRs are struggling more than ever during COVID-19. With the boom in their franchise competition, and customers funneling into big name fast food chains due to the existence of drive-thrus and mobile apps, there does not seem to be a market for QSR independents to compete in. We believe that there is sadly no motivation for customers to risk themselves for independent QSRs when they can get the same at a chain. 
+
+### FSR
+FSRs report a positivity of 57% and 54% for chain and independent restaurants respectively. While it is hard to drive a conclusion from the findings of this question alone, please note that FSR chain restaurants only take up 19% of all FSR restaurants. In comparison, QSR chains take up 64% for all QSR restaurants. This means that FSRs are an independently owned saturated market whereas QSRs are dominated by chains. It is heartening to see that over half of FSRs exhibit positive feelings towards their month of reopening, but we must also take stock that opening with restrictions just might not cut it for some restaurants, mirroring Restaurant Canada's outlook survey's report where 49% of their respondents reported a negative impact following reopening [@citeRestaurantOutlook].
+
+### Drinking Place
+As for Drinking Places, we are inclined to assume that the 75% positivity in chains is similar to QSR chains, where Starbucks and Tim Hortons are responsible for the majority of positivity. The surprising 70% of independent positivity, despite its small sample size, lends support to how local coffee shops are seeing influx of support from their neighbourhoods [@citeCoffeeCovid].
+
+```{r prep-figure-6b}
+# Factoring for display order
+intervention_survey$Q3 <- factor(intervention_survey$Q3, levels = c("Yes","No"))
+intervention_survey$Q1 <- factor(intervention_survey$Q1, levels = c("Quick Service Restaurant","Full Service Restaurant","Drinking Place"))
+
+intervention_bar_positive_category <-
+  intervention_survey %>%
+  group_by(Q1) %>%
+  count(Q3) %>%
+  ggplot(aes(x = Q1, y = n, fill = Q3)) +
+  geom_bar(stat='identity',position=position_dodge()) + 
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.8) +
+#  scale_x_discrete(labels = c("QSR Chain","QSR Indie","FSR Chain","FSR Indie","Drink Chain", "Drink Indie")) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        legend.background = element_rect(fill="transparent"),
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment 
+        plot.margin = margin(10, 10, 10, 100)) + #Margin adjustment so x-axis labels don't get cut off
+  labs(title = "Intervention: Did reopening have a positive effect on your business?",
+       caption ="Source: Intervention Survey (500 Restaurants/Drinking Places)")  
+```
+
+```{r show-figure-6b-intervention-bar-positive-category, fig.cap = "On a higher level, reopening had minimal effect on positivity", fig.pos = "H", out.width = '60%', warning=FALSE}
+show(intervention_bar_positive_category)
+```
+
+
+```{r prep-figure-6}
+# Factor for display order
+intervention_survey$Q3 <- factor(intervention_survey$Q3, levels = c("Yes","No"))
+
+intervention_bar_positive <-
+  intervention_survey %>%
+  group_by(category) %>%
+  count(Q3) %>%
+  ggplot(aes(x = category, y = n, fill = Q3)) +
+  geom_bar(stat='identity',position=position_dodge()) + 
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.8) +
+  scale_x_discrete(labels = c("QSR Chain","QSR Indie","FSR Chain","FSR Indie","Drink Chain", "Drink Indie")) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        legend.background = element_rect(fill="transparent"),
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment 
+        plot.margin = margin(10, 10, 10, 100)) + #Margin adjustment so x-axis labels don't get cut off
+  labs(title = "Intervention: Did reopening have a positive effect on your business?",
+       caption ="Source: Intervention Survey (500 Restaurants/Drinking Places)")  
+```
+
+```{r show-figure-6-intervention-bar-positive, fig.cap = "On a more granular level, there is significant difference between chain and independent restaurants", fig.pos = "H", out.width = '70%', warning=FALSE}
+show(intervention_bar_positive)
+```
+
+## Role of Government Subsidies Cannot be Ignored
+During both our research on the restaurant industry in the planning phase, and our analysis of survey results, we noticed that the topic of government subsidies cannot be separated from the conversation. Yet due to how malleable qualification is for both the wage subsidy (Canada Emergency Wage Subsidy - CEWS) and the rent subsidy (Canada Emergency Rent Subsidy - CERS), we were unable to use them as criteria for stratification. In fact, these subsidies are positioned so that as soon as restaurant revenue in the current month matches the same month a year prior, restaurants are no longer qualified [@citeCEWS;@citeCERS]. Each restaurant also receives a different % of subsidies as well. Rather than having restaurants dig through their financials and calculate the percentage of wage and rent subsidies they are receiving, we simply ask if they are receiving any subsidies (either or both CEWS and CERS), and whether they think they could stay afloat without or with the subsidies (with reopening for intervention, with only takeout/delivery for control).
+
+### Who has Subsidies? 
+
+In terms of whether or not restaurants were receiving subsidies (See Figure \@ref(fig:show-figure-8-full-subsidies-bar)), our main goal was to double check our assumption that most of them were able to procure some degree of financial aid from the government. Keep in mind that this is from a sample that is somewhat secure enough to want to reopen. It is therefore unsurprising that 78% of restaurants, intervention and control group combined, are receiving some form of government subsidy. There is a worrying 19% of FSR independents that are most likely unable to obtain subsidies and opens up some future policy evaluations. While we cannot stratify based on subsidies, we can most certainly keep this breakdown in mind when looking at the next 2 questions. 
+
+```{r prep-figure-8}
+full_survey$Q5 <- factor(full_survey$Q5, levels = c("Yes","No"))
+
+full_survey$category <- factor(full_survey$category, levels =
+                                         c("QSR Chain",
+                                           "QSR Independent",
+                                           "FSR Chain",
+                                           "FSR Independent",
+                                           "Drink Chain",
+                                           "Drink Independent"))
+
+full_subsidies_bar <-
+  full_survey %>%
+  group_by(category) %>%
+  count(Q5) %>%
+  ggplot(aes(x = category, y = n, fill = Q5)) +
+  geom_bar(stat = 'identity') +
+  scale_x_discrete(labels = c("QSR Chain","QSR Indie","FSR Chain","FSR Indie","Drink Chain", "Drink Indie")) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        legend.background = element_rect(fill="transparent"),
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6)) + #Caption size adjustment 
+  labs(title = "Combined: Did you receive any sources of government subsidies in April 2021",
+       caption ="Source: Full Survey (1502 Restaurants/Drinking Places)")
+```
+
+```{r show-figure-8-full-subsidies-bar, fig.cap = "Majority of restaurants have some source of government subsidy", fig.pos = "H", out.width = '70%'}
+show(full_subsidies_bar)
+```
+
+
+### Breaking Even - In-Person vs Takeout/Delivery only 
+
+In asking whether restaurants can stay afloat with and without government subsidies during the month of April 2021, we are evaluating whether in-person dining has a positive effect towards restaurants perception on their performance compared to past months. We must acknowledge that opening up for in-person dining can very likely result in financial loss as compared to the restaurant simply staying takeout/delivery only, operating at lower cost. Here we see the benefits of a RCT, with the presence of a control group representative of the sample posing as the counterfactual, the what if they never reopened scenario. Unsurprisingly, respondents answered with a resounding no to breaking even without subsidies (Figure \@ref(fig:show-figure-7-ivc-bar-break-without)), no matter their differentiation from each other with one exception, QSR chains. Both intervention and control QSR chains report over 50% of restaurants being able to stay afloat without subsidies, in fact it is highly likely that they are responsible for a good amount of the data points that responded to not be taking any subsidies. This further cements the idea that reopening has minimal impact for QSR chains, and they are staying afloat with just takeout/delivery. For everyone else however, no matter if they reopened or stayed closed to in-person dining, government subsidies are essential to their business. Note that the datapoints in this specific question cover both restaurants taking subsidies, in which they would be answering to a hypothetical, and restaurants without subsidies, in which they would be answering to their reality. 
+
+```{r prep-figure-7a}
+intervention_survey$Q4 <- factor(intervention_survey$Q4, levels = c("Yes","No"))
+
+intervention_bar_break_without <-
+  intervention_survey %>%
+  group_by(category) %>%
+  count(Q4) %>%
+  ggplot(aes(x = category, y = n, fill = Q4)) +
+  geom_bar(stat='identity',position=position_dodge()) + 
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.8) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  scale_x_discrete(labels = c("QSR Chain","QSR Indie","FSR Chain","FSR Indie","Drink Chain", "Drink Indie")) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        legend.background = element_rect(fill="transparent"),
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment 
+        plot.margin = margin(10, 10, 10, 50)) + #Margin adjustment so x-axis labels don't get cut off
+  labs(title = "Intervention",
+       caption ="Source: Intervention Survey (500 Restaurants/Drinking Places)") 
+```
+
+```{r prep-figure-7b}
+# Factor for display order
+control_survey$Q3 <- factor(control_survey$Q3, levels = c("Yes","No"))
+
+control_bar_break_without <- 
+  control_survey %>%
+  group_by(category) %>%
+  count(Q3) %>%
+  ggplot(aes(x = category, y = n, fill = Q3)) +
+  geom_bar(stat='identity',position=position_dodge()) + 
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.8) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  scale_x_discrete(labels = c("QSR Chain","QSR Indie","FSR Chain","FSR Indie","Drink Chain", "Drink Indie")) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        legend.background = element_rect(fill="transparent"),
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment 
+        plot.margin = margin(10, 10, 10, 50)) + #Margin adjustment so x-axis labels don't get cut off
+  labs(title = "Control",
+       caption ="Source: Control Survey (1002 Restaurants/Drinking Places)")
+```
+
+```{r show-figure-7-ivc-bar-break-without, fig.cap = "Resounding no to staying afloat without government subsidies", fig.pos = "H", out.width = '70%'}
+grid.arrange(intervention_bar_break_without, control_bar_break_without, ncol = 2,
+             top = textGrob("Would you be able to stay afloat in April 2021 without government subsidies?"))
+```
+
+
+As to whether respondents could stay afloat with subsidies (Figure \@ref(fig:show-figure-9-ivc-bar-break-with)), there is a noticeable increase in positive respondents from both intervention and control groups (See Table \@ref(tab:show-table-4-without-with)). Note that the sample size for the "with subsidies" group is different from the "without subsidies" group because those not receiving subsidies are unable to answer this question. What we want to focus on is the comparison between the Intervention With and the Control With columns. To put it simply, these two columns represent the performance of restaurants with subsidies that are allowed to reopen, and the performance of restaurants with subsidies that must remain takeout/delivery only. These two columns represent the core of our study, a near complete standardization of all other variables possible, including the existence of subsidies. And as you can see, a higher percentage of QSR and FSR respondents report being able to tide COVID-19 when they reopen under restrictions than living off takeout/delivery, with the intervention group showing better results than the control group. 
+
+```{r prep-figure-9a}
+# Factor for display order
+intervention_survey$Q6 <- factor(intervention_survey$Q6, levels = c("Yes","No"))
+
+intervention_bar_break_with <-
+  intervention_survey %>%
+  filter(Q5 == "Yes") %>%
+  group_by(category) %>%
+  count(Q6) %>%
+  ggplot(aes(x = category, y = n, fill = Q6)) +
+  geom_bar(stat='identity',position=position_dodge()) + 
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.8) +
+  scale_x_discrete(labels = c("QSR Chain","QSR Indie","FSR Chain","FSR Indie","Drink Chain", "Drink Indie")) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        legend.background = element_rect(fill="transparent"),
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment 
+        plot.margin = margin(10, 10, 10, 50)) + #Margin adjustment so x-axis labels don't get cut off
+  labs(title = "Intervention",
+       caption ="Source: Intervention Survey (500 Restaurants/Drinking Places)") 
+```
+
+```{r prep-figure-9b}
+# Factor for display order
+control_survey$Q5 <- factor(control_survey$Q5, levels = c("Yes","No"))
+
+control_bar_break_with <-
+  control_survey %>%
+  filter(Q4 == "Yes") %>%
+  group_by(category) %>%
+  count(Q5) %>%
+  ggplot(aes(x = category, y = n, fill = Q5)) +
+  geom_bar(stat='identity',position=position_dodge()) + 
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.8) +
+  scale_x_discrete(labels = c("QSR Chain","QSR Indie","FSR Chain","FSR Indie","Drink Chain", "Drink Indie")) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        legend.background = element_rect(fill="transparent"),
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment 
+        plot.margin = margin(10, 10, 10, 50)) + #Margin adjustment so x-axis labels don't get cut off
+  labs(title = "Control",
+       caption ="Source: Control Survey (1002 Restaurants/Drinking Places)") 
+```
+
+```{r show-figure-9-ivc-bar-break-with, fig.cap = "Intervention showing positive effect in helping restaurants stay afloat", fig.pos = "H", out.width = '70%'}
+grid.arrange(intervention_bar_break_with, control_bar_break_with, ncol = 2,
+             top = textGrob("Can you stay afloat in April 2021 when combined with government subsidies?"))
+```
+
+```{r prep-table-4}
+without_with_table <-
+  tibble(category = c("QSR Chain","QSR Independent","FSR Chain","FSR Independent","Drinking Place Chain","Drinking Place Independent"),
+         intervention_without = c("56\\%","10\\%","29\\%","20\\%","50\\%","30\\%"),
+         intervention_with = c("76\\%","25\\%","49\\%","36\\%","62\\%","60\\%"),
+         control_without = c("61\\%","4\\%","21\\%","19\\%","45\\%","35\\%"),
+         control_with = c("65\\%","14\\%","45\\%","31\\%","72\\%","67\\%"))
+```
+
+```{r show-table-4-without-with, fig.pos = "H", out.width = '70%'}
+knitr::kable(without_with_table, escape = F,
+      col.names = c("Category","Intervention Without","Intervention With","Control Without", "Control With"),
+      align = "llll",
+      caption = "Comparing the Percentage Change Relating to the Existence of Government Subsidies between Intervention and Control Groups") %>%
+  row_spec(0,bold=TRUE) %>% # Bold Column names, Row 0 = first row
+  kable_styling(full_width = F, latex_options = "scale_down") %>%
+  add_footnote("Data is based off both intervention and control surveys")
+```
+
+### Quick Statistics 
+
+**Summary:** 
+
+**After running logistic regressions on data regarding restaurants' ability to stay afloat with government subsidies, we found that overall, restaurants that reopened had a 1.26 greater odds of staying afloat than those that remained closed, however overall the odds of staying afloat is still quite low. For restaurants that have reopened, we also found that independent restaurants have a odds ratio of 0.352 in comparison to chains. Which means independent restaurants have around a third of the odds of chains in staying afloat.**
+
+Logisitc regression tables created with Oddsratio [@citeOddsratio].
+
+We also conducted a logistic regression analysis to take a look at the log odds of a reopened restaurant being able to stay afloat with subsidies compared to restaurants that were not allowed to reopen. The results are shown in table \@ref(tab:show-logit-table-1). In this case, our dependent variable (DV), or variable to be explained is whether restaurants can stay afloat with subsidies; and our independent variable (IV) or explanatory variable, is whether the restaurant has reopened or not. In this case, both DV and IVs are binary (0-1) variables, Yes or No for our DV, and Treatment or Control for our IV. 
+
+```{r prep-logit-table-1}
+afloat_with_treatment_control <- glm(Q6 ~ type, data = full_logit, family = "binomial")
+afloat_logit_table <- data.frame(summary(afloat_with_treatment_control)$coef)
+rownames(afloat_logit_table) <- c("Intercept", "Treated")
+```
+
+```{r show-logit-table-1, fig.pos = "H", out.width = '70%'}
+knitr::kable(afloat_logit_table, escape = F,
+      col.names = c("Estimate","Std Error","z value","p-value"),
+ #     align = "llll",
+      caption = "Logistic Regression Results for Treatment/Control on Staying Afloat with Subsidies") %>%
+  row_spec(0,bold=TRUE) %>% # Bold Column names, Row 0 = first row
+  kable_styling(full_width = F, latex_options = "scale_down") %>%
+  add_footnote(c("Dependent Variable: Can you stay afloat when combined with government subsidies?",
+                 "Independent Variable: Is the restaurant part of the treatment or control group?"))
+```
+
+Note that in this particular logistic regression we are comparing restaurants as an entire group rather than separating them by restaurant type. Simply put, you can interpret the results as such:
+
+`Staying afloat = -0.28128 + 0.23327 * restaurant is part of treatment group `
+
+Where in this case "restaurant is part of treatment group" is 1 while "restaurant is part of control group" is 0. Therefore, for the treatment group, we will arrive at: 
+
+`Staying afloat = -0.28128 + 0.23327` -> `Staying afloat = -0.04801` 
+
+And you can subsequently come to this equation for the control: 
+
+`Staying afloat = -0.28128 + 0.23327 * restaurant is part of control group (0)` -> `Staying afloat = -0.28128` 
+
+As such, this means that the log odds for those in the treatment group has higher log odds than the control group that they will stay afloat. Or in layman terms, the odds of a intervened upon restaurant staying afloat with subsidies in April 2021 is higher than a closed restaurant, but since you can consider a negative log odds to be odds that are against us, this means that while intervened upon restaurants are more likely to stay afloat, they are still quite unlikely to stay afloat. For an even easier to interpret answer, we exponentiated the log odds to log odds ratio in table \@ref(tab:show-table-log-ratio-1). Basically, being in the intervention group puts restaurants at a 1.26 greater odds of staying afloat with subsidies. 
+
+```{r prep-table-log-ratio-1}
+ratio_afloat <- or_glm(data = full_logit, model = afloat_with_treatment_control)
+ratio_afloat$predictor[ratio_afloat$predictor == "type1" ] <- "Treatment"
+```
+
+```{r show-table-log-ratio-1, fig.pos = "H", out.width = '70%'}
+knitr::kable(ratio_afloat, escape = F,
+      col.names = c("Predictor","Odds Ratio","Confidence Interval Low (2.5)","Confidence Interval High (97.5)","Increment"),
+ #     align = "llll",
+      caption = "Log Odds Ratio for Treatment/Control on Staying Afloat with Subsidies") %>%
+  row_spec(0,bold=TRUE) %>% # Bold Column names, Row 0 = first row
+  kable_styling(full_width = F, latex_options = "scale_down") %>%
+  add_footnote("Based on the model in table 5")
+```
+
+
+However, since we know that restaurant types do impact the results, we conducted another logistic regression, with the same DV, but this time looking only at the treatment group. By doing so we can set the IV to be 2 variables: The type of establishment the restaurant categorized itself as - QSR, FSR, Drinking Place, and whether it is a chain or independent. During the regression, other IVs are held constant, which means we are controlling for the differences in establishment type or whether the restaurant is a chain/independent. The results are in table \@ref(tab:show-logit-table-2). 
+
+```{r prep-logit-table-2}
+intervention_logit <- full_logit %>% filter(type == 1)
+afloat_intervention <- glm(Q6 ~ Q2 + Q1, data = intervention_logit, family = "binomial")
+afloat_intervention_logit_table <- data.frame(summary(afloat_intervention)$coef)
+rownames(afloat_intervention_logit_table) <- c("Intercept", "Independent","FSR","Drinking Place")
+```
+
+```{r show-logit-table-2, fig.pos = "H", out.width = '70%'}
+knitr::kable(afloat_intervention_logit_table, escape = F,
+      col.names = c("Estimate","Std Error","z value","p-value"),
+ #     align = "llll",
+      caption = "Evaluating Restaurant Category and Ownership on Staying Afloat with Subsidies") %>%
+  row_spec(0,bold=TRUE) %>% # Bold Column names, Row 0 = first row
+  kable_styling(full_width = F, latex_options = "hold_position") %>%
+  add_footnote(c("Dependent Variable: Can you stay afloat when combined with government subsidies?",
+                 "Independent Variable 1: Is the restaurant a Chain or Independent?",
+                 "Independent Variable 2: Is the restaurant QSR, FSR, or a Drinking Place"))
+```
+
+Without diving into the math again, we can make a few surface level observations. Independent restaurants have around 1.05 less log odds of staying afloat than chain restaurants, which backs up our previous analyses of chain restaurants having a better time during COVID-19. As for the type of establishments, while FSRs shows less log odds in staying afloat compared to QSRs, and Drinking Places show more log odds than QSRs, the p-value of both variables are quite large. In statistics terms they would call these variables not statistically significant. But what that means here is simply that it is not the case that type of restaurant establishments have no effect, but rather there is a better hypothesis out there. 
+
+Lastly, let us take a look at the odds ratio (Table \@ref(tab:show-table-log-ratio-2). Since the type of restaurant establishment is not statistically significant, we opted to only look at the odds ratio of chain versus independent instead. The odds ratio of independent to chain is at 0.352. Which means that independent restaurants part of the intervention group has around 1/3 the odds of staying afloat than chain restaurants.
+
+```{r prep-table-log-ratio-2}
+ratio_logit2 <- or_glm(data = intervention_logit, model = afloat_intervention)
+ratio_logit2$predictor[ratio_logit2$predictor == "Q21" ] <- "Tndependent"
+ratio_logit2$predictor[ratio_logit2$predictor == "Q12" ] <- "FSR"
+ratio_logit2$predictor[ratio_logit2$predictor == "Q13" ] <- "Drinking Place"
+```
+
+```{r show-table-log-ratio-2, fig.pos = "H", out.width = '70%'}
+knitr::kable(ratio_logit2, escape = F,
+      col.names = c("Predictor","Odds Ratio","Confidence Interval Low (2.5)","Confidence Interval High (97.5)","Increment"),
+ #     align = "llll",
+      caption = "Log Odds Ratio for Restaurant Category and Ownership on Staying Afloat with Subsidies") %>%
+  row_spec(0,bold=TRUE) %>% # Bold Column names, Row 0 = first row
+  kable_styling(full_width = F, latex_options = "scale_down") %>%
+  add_footnote("Based on the model in table 7")
+```
+
+
+### Points for Further Study
+
+There are three points for further study however. Firstly, drinking places actually seem to be performing worse when they reopen compared to only offering takeout/delivery, why is that? Secondly, there is a larger % jump between going from without government subsidies to with government subsidies, this hints that while our intervention might bring positive results, it might pale in comparison to providing more government subsidies, or at the very least must be implemented in conjunction. Lastly, while the percentages have increased, QSR and FSR independents are reporting abysmal numbers still, not even reaching 40% of restaurants managing to stay afloat even in optimal subsidy and reopening circumstances. This is not a win, this is barely a stopgap measure, and more research must be done targeting independent restaurants. 
+
+
+## Restaurants show Slightly Upwards Trending Optimism for the Future
+
+While we paint a bleak but slightly upwards trending future based on our survey of intervention outcomes, we wanted to know how the people on the front line are feeling as well, so we surveyed their optimism levels (Figure \@ref(fig:show-figure-10-optimism-bar)). The comparison between intervention and control groups' optimism level is representative on whether restaurants feel like continuing to reopen/remain closed for in-person dining is feasible and will aid in their businesses going forward. Our results are telling. Of our intervention group, we see a much higher optimism rate when compared to the control group. Despite the possibilities of the negative impacts of reopening to in-person dining, it would be correct to assume that restaurants in our sample group still want to reopen. It is also hard to interpret what "Not Optimistic" means simply because it could be a reflection on restaurants' pessimistic views regarding the entire COVID-19 situation as a whole for the industry. What is striking is the resounding 57% optimism of FSR independent restaurants. For a group that has been struggling to stay afloat, it is telling when reopening has driven up optimism. It is possible that while their current finances are still strained, they project an upwards trajectory in the future, especially with the summer months looming. 
+
+
+```{r prep-figure-10a}
+# Factor for display order
+intervention_survey$Q7 <- factor(intervention_survey$Q7, levels = c("Yes","No"))
+
+intervention_bar_optimistic <-
+  intervention_survey %>%
+  group_by(category) %>%
+  count(Q7) %>%
+  ggplot(aes(x = category, y = n, fill = Q7)) +
+  geom_bar(stat='identity',position=position_dodge()) + 
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.8) +
+  scale_x_discrete(labels = c("QSR Chain","QSR Indie","FSR Chain","FSR Indie","Drink Chain", "Drink Indie")) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        legend.background = element_rect(fill="transparent"),
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment 
+        plot.margin = margin(10, 10, 10, 50)) + #Margin adjustment so x-axis labels don't get cut off
+  labs(title = "Intervention",
+       caption ="Source: Intervention Survey (500 Restaurants/Drinking Places)") 
+```
+
+```{r prep-figure-10b}
+control_survey$Q6 <- factor(control_survey$Q6, levels = c("Yes","No"))
+
+control_bar_optimistic <-
+  control_survey %>%
+  group_by(category) %>%
+  count(Q6) %>%
+  ggplot(aes(x = category, y = n, fill = Q6)) +
+  geom_bar(stat='identity',position=position_dodge()) + 
+  geom_text(aes(label=n), position=position_dodge(width=0.9),vjust=-0.5, size = 2.8) +
+  scale_x_discrete(labels = c("QSR Chain","QSR Indie","FSR Chain","FSR Indie","Drink Chain", "Drink Indie")) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(panel.grid = element_blank(), #No grid
+        axis.text.y = element_blank(), #No y axis text
+        axis.title = element_blank(), #No axis title for both axes
+        axis.ticks = element_blank(), #No ticks, the little black lines, in both axes
+        legend.title = element_blank(), #No legend title
+        legend.position = "top",
+        legend.background = element_rect(fill="transparent"),
+        panel.background = element_blank(), #No grey background
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
+        plot.caption = element_text(size = 6), #Caption size adjustment 
+        plot.margin = margin(10, 10, 10, 50)) + #Margin adjustment so x-axis labels don't get cut off
+  labs(title = "Control",
+       caption ="Source: Control Survey (1002 Restaurants/Drinking Places)") 
+```
+
+```{r show-figure-10-optimism-bar, fig.cap = "Intervention showing positive effect towards restaurant optimism, with FSRs showing the most impact", fig.pos = "H", out.width = '70%'}
+grid.arrange(intervention_bar_optimistic, control_bar_optimistic, ncol = 2,
+             top = textGrob("Are you optimistic about your business going forward under the same conditions?"))
+```
+
+
+# Limitations
+
+## Addressing Bias
+This study is by no means comprehensive. In fact it would not be incorrect to label this as a small piece in a much larger puzzle in trying to help the restaurant industry in Canada. We acknowledge that the questions themselves are not very specific, and that could lead to difficult to decipher information. What is the meaning of "No" when respondents answer whether they feel optimistic, what is the source of that non-optimism? What is staying afloat? Is it breaking even or running at a manageable deficit? When we ask whether restaurants think they can stay afloat, or whether they could consider their experience reopening to be positive, all very subjective questions, there is a distinct lack of standardized mode of measure. And of course, we are unable to account for intentional false positives in our survey respondents. It is within the realm of possibility for restaurants to lie about their performance under the impression that it would allow them to stay open longer, even if we made no mention of that being the case in our communications.  
+
+However, we believe that a certain degree of vagueness is required for 2 reasons. Firstly, it lends itself to a much faster survey and guarantees response, especially because we are offering a phone-in option. The last thing we want is to have restaurant owners meticulously analyzing their earnings and reporting exact numbers. Those numbers are essentially useless without operating cost, and compiling a database on all restaurants' operating cost is a recipe for privacy breeches. Secondly, the vagueness of determining what means afloat for example fits the intent of our study. It is not our, and by extension the government of Ontario's jurisdiction in deciding what metric is the best measure for restaurant success. Some owners might have a large pool of savings, or they might have a strategy that runs on deficit. What we can do is ask whether reopening is helping them survive in their own way. We understand that while we cannot land on hard conclusions based on our survey results, we also avoid pigeon holing our respondents. These are all easy questions that places the jurisdiction in our respondents court, so we are less talking at them but rather asking for their input. In that regard, we hope that our sincerity and our conveying of the importance of truthful results for helping the Ontario government write policies that better help restaurants will minimize untruthful responses. 
+
+## Statistical Limitations
+We also acknowledge that it is difficult to design a trial that aims to address the restaurant industry in Canada. Statistically, getting the baseline characteristics in line required us to first narrow the scope, cluster by restaurants, and then further stratify by the type of establishment and ownership of restaurant. In the end, we are left with very small clusters, though most meet the 120 smaple size requirements specified in our referenced guidelines [@citeSampleSizeReq]. Statistical comparisons must take into account these stratifications as simply comparing even intervention QSRs with control QSRs ignores the specificities of chain vs independent establishments. But this also means we are unable to provide any big picture answers, and likewise implies that this one trial is insufficient to draw any conclusions.
+
+## Unaccounted for Customers
+Lastly, there is an overlooked aspect that is impossible to track at our current implementation. That is whether the announcement that these reopened restaurants have vaccinated workers would lead to a larger influx of customers than usual and result in contamination of the study. There is also the question as to whether customer perception of chain vs independent restaurants would impact customer flow. While we can control for restaurants, customers are an entirely different monster that we cannot account for. An Andie.work survey found that customers prefer eating at independent rather than chain restaurants, and that only 10.4% were worried about catching COVID-19 from waitstaff [@citeAndie] . How this impacts our study is uncertain, but the data indicates that we could likely rule out the possibility of a large influx of customers to a COVID-19 hotspot simply because the waitstaff is vaccinated. As for addressing the chain vs independent discrepancy, this is why we decided to stratify our trial as we did. 
+
+# Moving Forward
+
+Premier Ford has allocated another batch of up to 10,000 vaccines for continuation of our experiment. We plan on taking another third of Peel qualifying restaurants to undertake the intervention. This would allow for a 2 month reopening, 1 month reopening, and closed restaurant comparison. Based on that data, and the available vaccination supply, with the Canadian government projecting 14.5M Canadians to be immunized by June [@cite14M], we predict that we will be able to run the trial in York, Toronto, and Ottawa concurrently in the Summer of 2021. Possible adjustments to the trial and surveys include providing restaurants with a customer survey for their customers to fill out at the end of their meal, though we anticipate a large number of non-respondents; and perhaps stratifying the groups even further by some factor of their government subsidies. We could ask for example, restaurants to fill in the percentages of their wages and rent currently being subsidised from the government. 
+
+Transitioning into the spring and summer months, we anticipate a higher amount of customer traffic with the reopening of patios. If as experts proclaim, that a third wave is imminent [@citeThirdWave], then undoubtedly the 4 Ontario hotspots will be the first to close. It is unlikely that restaurants can survive a third lockdown. This is the only time to test for alternatives, when risk is relatively low and outdoor dining begins to return en masse. Not all restaurants will be able to stay afloat amidst COVID-19, and some have already closed permanently, but we hope that our trials will help the Ontario government find a good middle ground between completely closing down restaurants and keeping them open.  
+
+On a final note, we believe there is an opportunity for additional studies with government subsidies as the intervention. Our current study places our intervention on top of subsidies, making us unable to answer questions about the significance of subsidies themselves. We hope that this study helps aid the Progressive Conservative Party of Ontario in better formulating policies targeted at the restaurant industry in Ontario. If resources and circumstances permit, barring any increased risk to the pandemic, we aim to gradually scale up the trial. 
+
+# References
+
+<div id="refs"></div>
+
+# Appendix
+Link to scoping survey: https://c1m2jwzr5dk.typeform.com/to/GomHmnnL 
+
+Link to the intervention survey: https://c1m2jwzr5dk.typeform.com/to/r98QZqE6 
+
+Link to the control survey: https://c1m2jwzr5dk.typeform.com/to/YMR7bXHD
+
+```{r scoping-doc, out.width="70%", fig.cap="Scoping: Declaration of Consent"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/00_ss_declaration-of-consent.png"))
+```
+
+```{r scoping-q1, out.width="70%", fig.cap="Scoping Q1: What is your business name and address?"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/01_ss_q1.png"))
+```
+
+```{r scoping-q2, out.width="70%", fig.cap="Scoping Q2: Please enter a phone number/email we can contact you by?"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/02_ss_q2.png"))
+```
+
+```{r scoping-q3, out.width="70%", fig.cap="Scoping Q3: What do you categorize your business as?"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/03_ss_q3.png"))
+```
+
+```{r scoping-q4, out.width="70%", fig.cap="Scoping Q4: Are you a part of a chain or are you independently owned?"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/04_ss_q4.png"))
+```
+
+```{r scoping-q5, out.width="70%", fig.cap="Scoping Q5: What are your current state of operations?"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/05_ss_q5.png"))
+```
+
+```{r scoping-q6-1, out.width="70%", fig.cap="Scoping Q6-1: If given vaccines for your staff, do you consent to signing up for reopening under Ontario's orange level restrictions (Listed below)?"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/06_ss_q6-1.png"))
+```
+
+```{r scoping-q6-2, out.width="70%", fig.cap="Scoping Q6-2: If given vaccines for your staff, do you consent to signing up for reopening under Ontario's orange level restrictions (Listed below)?"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/07_ss_q6-2.png"))
+```
+
+```{r scoping-q7, out.width="70%", fig.cap="Scoping Q7: How much staff would you be employing for April 2021 if you were allowed to reopen?"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/08_ss_q7.png"))
+```
+
+```{r scoping-q8, out.width="70%", fig.cap="Scoping Q8: At the end of April 2021, we will be sending another follow-up survey to ask how your month went. Please indicate how you would like the survey to be sent."}
+knitr::include_graphics(here("inputs/survey/scoping-survey/09_ss_q8.png"))
+```
+
+```{r scoping-end, out.width="70%", fig.cap="Scoping End"}
+knitr::include_graphics(here("inputs/survey/scoping-survey/10_ss_end.png"))
+```
+
+```{r intervention-doc, out.width="70%", fig.cap="Intervention: Declaration of Consent"}
+knitr::include_graphics(here("inputs/survey/intervention-survey/00_is_doc.png"))
+```
+
+```{r intervention-q1, out.width="70%", fig.cap="Intervention Q1: What is your business name and address?"}
+knitr::include_graphics(here("inputs/survey/intervention-survey/01_is_q1.png"))
+```
+
+```{r intervention-q2, out.width="70%", fig.cap="Intervention Q2: Did reopening have a positive effect on your business in April 2021?"}
+knitr::include_graphics(here("inputs/survey/intervention-survey/02_is_q2.png"))
+```
+
+```{r intervention-q3, out.width="70%", fig.cap="Intervention Q3: Are you receiving any source of government subsidies in April 2021 ?"}
+knitr::include_graphics(here("inputs/survey/intervention-survey/03_is_q3.png"))
+```
+
+```{r intervention-q4, out.width="70%", fig.cap="Intervention Q4: Would you be able to stay afloat in April 2021 WITHOUT government subsidies?"}
+knitr::include_graphics(here("inputs/survey/intervention-survey/04_is_q4.png"))
+```
+
+```{r intervention-q5, out.width="70%", fig.cap="Intervention Q5: Would you be able to stay afloat in April 2021 WITH government subsidies?"}
+knitr::include_graphics(here("inputs/survey/intervention-survey/05_is_q5.png"))
+```
+
+```{r intervention-q6, out.width="70%", fig.cap="Intervention Q6: Are you optimistic about your business if you were to operate under these conditions for another month?"}
+knitr::include_graphics(here("inputs/survey/intervention-survey/06_is_q6.png"))
+```
+
+```{r intervention-end, out.width="70%", fig.cap="Intervention: End"}
+knitr::include_graphics(here("inputs/survey/intervention-survey/07_is_end.png"))
+```
+
+
+```{r control-doc, out.width="70%", fig.cap="Control: Declaration of Consent"}
+knitr::include_graphics(here("inputs/survey/control-survey/00_cs_doc.png"))
+```
+
+```{r control-q1, out.width="70%", fig.cap="Control Q1: What is your business name and address?"}
+knitr::include_graphics(here("inputs/survey/control-survey/01_cs_q1.png"))
+```
+
+```{r control-q2, out.width="70%", fig.cap="Control Q2: Are you receiving any source of government subsidies in April 2021 ?"}
+knitr::include_graphics(here("inputs/survey/control-survey/02_cs_q2.png"))
+```
+
+```{r control-q3, out.width="70%", fig.cap="Control Q3: Would you be able to stay afloat in April 2021 WITHOUT government subsidies?"}
+knitr::include_graphics(here("inputs/survey/control-survey/03_cs_q3.png"))
+```
+
+```{r control-q4, out.width="70%", fig.cap="Control Q4: Would you be able to stay afloat in April 2021 WITH government subsidies?"}
+knitr::include_graphics(here("inputs/survey/control-survey/04_cs_q4.png"))
+```
+
+```{r control-q5, out.width="70%", fig.cap="Control Q4: Are you optimistic about your business if you were to operate under these conditions for another month?"}
+knitr::include_graphics(here("inputs/survey/control-survey/05_cs_q5.png"))
+```
+
+```{r control-end, out.width="70%", fig.cap="Control: End"}
+knitr::include_graphics(here("inputs/survey/control-survey/06_cs_end.png"))
+```
+
+
+
+
+
+
+
+
+
