@@ -10,9 +10,9 @@ The paper can be found [here](https://github.com/JeremyJChu/covid_restaurants_rc
 ## The Surveys
 We created 3 surveys. A scoping survey to determine our sample and scope, an intervention survey sent to the treatment group at the end of the intervention, and a control survey for the control group at the end of the intervention. Our calculations landed on 500 for the treatment group and 1002 for the control group. Surveys were created using the free version of Typeform.
 
-- [Scoping Survey] (https://c1m2jwzr5dk.typeform.com/to/GomHmnnL)
-- [Intervention Survey] (https://c1m2jwzr5dk.typeform.com/to/r98QZqE6)
-- [Control Survey] (https://c1m2jwzr5dk.typeform.com/to/YMR7bXHD)
+- [Scoping Survey](https://c1m2jwzr5dk.typeform.com/to/GomHmnnL)
+- [Intervention Survey](https://c1m2jwzr5dk.typeform.com/to/r98QZqE6)
+- [Control Survey](https://c1m2jwzr5dk.typeform.com/to/YMR7bXHD)
 
 ## Packages
 This project was done entirely with R through R Studio. Results were knitted into a pdf through R Markdown. Packages used:
