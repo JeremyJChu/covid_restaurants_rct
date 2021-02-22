@@ -282,7 +282,7 @@ scoping_bar_staff <-
         plot.title = element_text(size = 10, face = "bold", hjust = 0.5), #Title size and face adjustment
         plot.caption = element_text(size = 6), #Caption size adjustment
         plot.margin = margin(10, 10, 10, 100)) +  #Gives more margin space
-  labs(title = "How much staff would you be employing for April 2021 if you were allowed to reopen?",
+  labs(title = "How much staff would you be employing if you were allowed to reopen?",
        caption ="Source: Scoping Survey")  
 ```
 
@@ -412,7 +412,7 @@ scoping_bar_proportion <-
 ```{r show-figure-3-scoping-bar-proportion, fig.cap = "Majority of restaurants open for takeout/delivery, small percentage temporarily/permanently closed", fig.pos = "H", out.width = '70%'}
 show(scoping_bar_proportion)
 ```
-A large majority of all establishments have opted to offer takeout/delivery, while roughly 10% has closed permanently, and another 10% closed temporarily. Out of all food establishments that are offering takeout/delivery or are temporarily closed, only 1502 out of 1996 expressed a desire to reopen (Figure \@ref(fig:show-figure-4-scoping-bar-vaccine)). These 1502 restaurants therefore formed our pool of qualified participants and we split the treatment/control group from there. 
+A large majority of all establishments have opted to offer takeout/delivery, while roughly 10% has closed permanently, and another 10% closed temporarily. Out of all food establishments that are offering takeout/delivery or are temporarily closed, only 1502 out of 1996 expressed a desire to reopen (Figure \@ref(fig:show-figure-4-scoping-bar-vaccine)). In addition, 1502 excludes all caterers since they do not offer in-person dining. These 1502 restaurants therefore formed our pool of qualified participants and we split the treatment/control group from there. 
 
 ```{r prep-figure-4}
 scoping_survey$Q6 <- factor(scoping_survey$Q6, levels = c("Yes","No"))
